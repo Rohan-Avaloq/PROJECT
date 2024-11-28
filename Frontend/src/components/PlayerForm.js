@@ -56,7 +56,7 @@ const PlayerForm = ({ onSave, existingPlayer }) => {
         {existingPlayer ? 'Update Player' : 'Add Player'}
 </button>
 </form>
-  );
+  ); 
 };
  
 export default PlayerForm;
