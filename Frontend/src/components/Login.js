@@ -1,6 +1,7 @@
 // /src/components/Login.js
 
 import React, { useState } from 'react';
+import './Login.css';  // Import the CSS file for this component
 import { login } from '../services/authService';
 
 const Login = ({ onLoginSuccess }) => {
@@ -29,7 +30,7 @@ const Login = ({ onLoginSuccess }) => {
           <label>Password:</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+        {errorMessage && <p>{errorMessage}</p>}
         <button type="submit">Login</button>
       </form>
     </div>
