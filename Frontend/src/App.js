@@ -1,24 +1,19 @@
-// /src/App.js
-
-import React, { useState } from 'react';
-import PlayerList from './components/PlayerList';
-import Login from './components/Login';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
+import PlayerDetails from "./components/PlayerDetails";
+import AdminPage from "./components/AdminPage"; 
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLoginSuccess = () => {
-    setIsLoggedIn(true);
-  };
-
   return (
-    <div>
-      {isLoggedIn ? (
-        <PlayerList />
-      ) : (
-        <Login onLoginSuccess={handleLoginSuccess} />
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/player-details" element={<PlayerDetails />} />
+        <Route path="/admin" element={<AdminPage />} />
+      </Routes>
+    </Router>
   );
 };
 
