@@ -79,16 +79,17 @@
 
 
 
-const API_BASE_URL = "https://localhost:5000";  // Use https for secure connection
+const API_BASE_URL = "http://localhost:5000";  // Use https for secure connection
 
 export const PlayerService = {
+  getAuthToken: () => {
+    return localStorage.getItem("access_token"); // Or retrieve from wherever you store it
+  },
+
   getAllPlayers: async () => {
     const response = await fetch(`${API_BASE_URL}/players`, {
-      // Allow insecure content from localhost for development purposes
-      // In production, ensure proper SSL certificate is used to avoid this.
-      // `mode: 'no-cors'` may not be necessary if the server is configured with CORS
-      // correctly.
       headers: {
+        "Authorization": `Bearer ${this.getAuthToken()}`,
         "Accept": "application/json",
       },
     });
@@ -102,6 +103,7 @@ export const PlayerService = {
   getPlayerById: async (id) => {
     const response = await fetch(`${API_BASE_URL}/players/${id}`, {
       headers: {
+        "Authorization": `Bearer ${this.getAuthToken()}`,
         "Accept": "application/json",
       },
     });
@@ -116,6 +118,7 @@ export const PlayerService = {
     const response = await fetch(`${API_BASE_URL}/players`, {
       method: "POST",
       headers: {
+        "Authorization": `Bearer ${this.getAuthToken()}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newPlayer),
@@ -130,6 +133,7 @@ export const PlayerService = {
     const response = await fetch(`${API_BASE_URL}/players/${id}`, {
       method: "PUT",
       headers: {
+        "Authorization": `Bearer ${this.getAuthToken()}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedPlayer),
@@ -143,6 +147,9 @@ export const PlayerService = {
   deletePlayer: async (id) => {
     const response = await fetch(`${API_BASE_URL}/players/${id}`, {
       method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${this.getAuthToken()}`,
+      },
     });
     if (!response.ok) {
       throw new Error("Failed to delete player.");
@@ -150,6 +157,7 @@ export const PlayerService = {
     return await response.json();
   },
 };
+
 
 
 
